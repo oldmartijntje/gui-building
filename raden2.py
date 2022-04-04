@@ -60,8 +60,8 @@ def game():
     guessNumber = tkinter.IntVar()
     guessNumber.set(10)
     spinbox = ttk.Spinbox(window, from_=0,to=1000,textvariable=guessNumber,wrap=True, state = 'readonly')
-    tkinter.Label(window,text='Guess:').grid(column=0, row=1, ipadx=20, ipady=10, sticky="EW")
     spinbox.grid(column=1, row=1, ipadx=20, ipady=10, sticky="EW")
+    tkinter.Label(window,text='Guess:').grid(column=0, row=1, ipadx=20, ipady=10, sticky="EW")
     ttk.Button(window,command=lambda:guessNumber.set(noIndexError(guessNumber.get()+100,1000)),text='+100').grid(column=0, row=2, ipadx=20, ipady=10, sticky="EW")
     ttk.Button(window,command=lambda:guessNumber.set(noIndexError(guessNumber.get()-100,1000)),text='-100').grid(column=1, row=2, ipadx=20, ipady=10, sticky="EW")
 

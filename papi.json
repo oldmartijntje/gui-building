@@ -1,0 +1,20 @@
+{
+  "smaken": [
+    "Aardbei",
+    "Chocolade",
+    "Vanille",
+    "Banaan",
+    "Kaas"
+  ],
+  "extraTypes": {
+    "Kaas": [
+      "Oude kaas",
+      "Jonge kaas"
+    ],
+    "Oude kaas": [
+        "Oude kaas van Volle melk",
+        "Oude kaas van Halfvolle melk",
+        "Oude kaas van Chocoladevolle melk"
+    ]
+  }
+}

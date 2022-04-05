@@ -10,9 +10,9 @@ def noIndexError(number, maxNumber, minNumber = 0):
     '''to not get those nasty index out of range errors, you try to get item 20 out of 19 items, this will return you item 0'''
     while number > maxNumber or number < minNumber:
         if number > maxNumber:
-            number -= maxNumber+1
+            number -= (maxNumber- minNumber)+1
         elif number < minNumber:
-            number += maxNumber + 1
+            number += (maxNumber - minNumber) + 1
     return number
 
 def positive(num):

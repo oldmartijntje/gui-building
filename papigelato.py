@@ -147,23 +147,30 @@ def berekenBonnetje(orders):
             receipt += f'\nIceType = €{round(extraKosten,2)}'
         
     else:
+        bolletjes = 0
         bolletjePrijs = 0
         opslagPrijs = 0
         toppingPrijs = 0
         for y in range(len(list(orders.keys()))):
             for x in range(orders[list(orders.keys())[y]]['aantalBolletjes']):
+                bolletjes += 1
                 prijsVanIjs += configData['prijs']['bolletje']
                 bolletjePrijs += configData['prijs']['bolletje']
                 if orders[list(orders.keys())[y]][f'bolletje {x}'] in configData['extraPrijs']:
-                    prijsVanIjs += configData['extraPrijs'][orders[list(orders.keys())[0]][f'bolletje {x}']]['bolletje']
-                    extraKosten += configData['extraPrijs'][orders[list(orders.keys())[0]][f'bolletje {x}']]['bolletje']
+                    prijsVanIjs += configData['extraPrijs'][orders[list(orders.keys())[y]][f'bolletje {x}']]['bolletje']
+                    extraKosten += configData['extraPrijs'][orders[list(orders.keys())[y]][f'bolletje {x}']]['bolletje']
             opslagPrijs += configData['opslag'][orders[list(orders.keys())[y]]['opslag']]['prijs']
             prijsVanIjs += configData['opslag'][orders[list(orders.keys())[y]]['opslag']]['prijs']
-            toppingPrijs += configData['topping'][orders[list(orders.keys())[y]]['topping']]['prijs'][orders[list(orders.keys())[y]]['opslag']]
-            prijsVanIjs += configData['topping'][orders[list(orders.keys())[y]]['topping']]['prijs'][orders[list(orders.keys())[y]]['opslag']]
+            if configData['topping'][orders[list(orders.keys())[y]]['topping']]['typePrijs'] == 'totaal':
+                toppingPrijs += configData['topping'][orders[list(orders.keys())[y]]['topping']]['prijs'][orders[list(orders.keys())[y]]['opslag']]
+                prijsVanIjs += configData['topping'][orders[list(orders.keys())[y]]['topping']]['prijs'][orders[list(orders.keys())[y]]['opslag']]
+            elif configData['topping'][orders[list(orders.keys())[y]]['topping']]['typePrijs'] == 'perBolletje':
+                toppingPrijs += (configData['topping'][orders[list(orders.keys())[y]]['topping']]['prijs'][orders[list(orders.keys())[y]]['opslag']]*orders[list(orders.keys())[y]]['aantalBolletjes'])
+                prijsVanIjs += (configData['topping'][orders[list(orders.keys())[y]]['topping']]['prijs'][orders[list(orders.keys())[y]]['opslag']]*orders[list(orders.keys())[y]]['aantalBolletjes'])
+
 
         receipt = defaultBonnetje
-        receipt += f'\nBolletjes = {orders[list(orders.keys())[0]]["aantalBolletjes"]} x {configData["prijs"]["bolletje"]} = €{bolletjePrijs}'
+        receipt += f'\nBolletjes = {bolletjes} x {configData["prijs"]["bolletje"]} = €{bolletjePrijs}'
         if extraKosten > 0:
             receipt += f'\nIceType = €{round(extraKosten,2)}'
         if opslagPrijs > 0:
